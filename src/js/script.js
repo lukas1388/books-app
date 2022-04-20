@@ -7,6 +7,7 @@
         },
         containerOf: {
             book: '.books-list',
+            bookImage: '.book__image',
         },
     };
 
@@ -22,5 +23,21 @@
             bookContainer.appendChild(generatedDOM);
         }
     }
+
+    const favoriteBooks = [];
+
+    function initActions(){
+
+        const clickedBook = document.querySelectorAll(select.containerOf.bookImage);
+        for(let clicked of clickedBook){
+            clicked.addEventListener('dblclick', function(event){
+                event.preventDefault();
+                clicked.classList.add('favorite');
+                const attr = clicked.getAttribute('data-id');
+                favoriteBooks.push(attr);
+            });
+        }
+    }
     render();
+    initActions();
 }
