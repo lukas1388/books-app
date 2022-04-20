@@ -18,6 +18,10 @@
 
     function render(){
         for(let data of dataSource.books){
+            const ratingBgc = determineRatingBgc(data.rating);
+            const ratingWidth = data.rating * 10;
+            data.ratingBgc = ratingBgc;
+            data.ratingWidth = ratingWidth;
             const generatedHTML = templates.bookProduct(data);
             const generatedDOM = utils.createDOMFromHTML(generatedHTML);
             const bookContainer = document.querySelector(select.containerOf.book);
@@ -68,7 +72,6 @@
             let shouldBeHidden = false;
 
             for(let filter of filters){
-                console.log(book.details);
                 if(book.details[filter]){
                     shouldBeHidden = true;
                     break;
@@ -83,6 +86,13 @@
                 bookHidden.classList.remove('hidden');
             }
         }
+    }
+
+    function determineRatingBgc(rating){
+        if(rating < 6) return 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%);';
+        if(rating > 6 && rating <= 8) return 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%);';
+        if(rating > 8 && rating <=9) return 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%);';
+        if(rating > 9) return 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%);';
     }
 
     render();
