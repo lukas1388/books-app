@@ -32,9 +32,15 @@
         for(let clicked of clickedBook){
             clicked.addEventListener('dblclick', function(event){
                 event.preventDefault();
-                clicked.classList.add('favorite');
                 const attr = clicked.getAttribute('data-id');
-                favoriteBooks.push(attr);
+                if(!favoriteBooks.includes(attr)){
+                    clicked.classList.add('favorite');
+                    favoriteBooks.push(attr);
+                } else {
+                    const index = favoriteBooks.indexOf(attr);
+                    clicked.classList.remove('favorite');
+                    favoriteBooks.splice(index, 1);
+                }
             });
         }
     }
